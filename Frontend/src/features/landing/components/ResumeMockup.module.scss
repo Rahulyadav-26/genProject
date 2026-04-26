@@ -1,0 +1,138 @@
+.mockupContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.glassCard {
+  width: 320px;
+  height: 440px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: rotateY(-15deg) rotateX(5deg);
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #334155, #1e293b);
+  }
+  
+  .headerText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .line1 {
+      width: 120px;
+      height: 12px;
+      border-radius: 4px;
+      background: #475569;
+    }
+    
+    .line2 {
+      width: 80px;
+      height: 8px;
+      border-radius: 4px;
+      background: #334155;
+    }
+  }
+}
+
+.bodySection {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .sectionTitle {
+    width: 60px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(0, 229, 255, 0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .pLine {
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    background: #1e293b;
+  }
+
+  .pLineShort {
+    width: 80%;
+    height: 6px;
+    border-radius: 4px;
+    background: #1e293b;
+  }
+}
+
+.highlight {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  transform: translateZ(50px);
+}
+
+.highlightTeal {
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  color: #00E5FF;
+  top: 35%;
+  left: -15%;
+}
+
+.highlightAmber {
+  background: rgba(255, 183, 3, 0.15);
+  border: 1px solid rgba(255, 183, 3, 0.4);
+  color: #FFB703;
+  bottom: 25%;
+  right: -20%;
+}
+
+.atsBadge {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: #0A0F1A;
+  border: 1px solid #334155;
+  color: #F8FAFC;
+  padding: 0.8rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transform: translateZ(30px);
+  
+  strong {
+    color: #10B981; 
+    font-size: 1.1rem;
+    margin-left: 0.3rem;
+  }
+}

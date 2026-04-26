@@ -1,94 +1,89 @@
 const mongoose = require('mongoose');
 
+const skillGapItemSchema = new mongoose.Schema({
+    skill: { type: String, required: true },
+    priorityLevel: { type: String, enum: ["low", "medium", "high"], required: true }
+}, { _id: false });
 
-const techincalQuestionSchema = new mongoose.Schema({
-    question : {
-        type : String,
-        required : [true , "Technical question is required"]
-    },
-    intention : {
-        type : String,
-        required : [true , "Intention is required"]
-    },
-    answer : {
-        type : String,
-        required : [true , "Answer is required"]
-    }
-},{
-    _id : false
-})
+const skillGapAnalysisSchema = new mongoose.Schema({
+    missingSkills: [skillGapItemSchema],
+    partialSkills: [skillGapItemSchema],
+    strongMatches: [String]
+}, { _id: false });
 
-const behavioralQuestionSchema = new mongoose.Schema({
-    question : {
-        type : String,
-        required : [true , "Behavioral question is required"]
+const atsAnalysisSchema = new mongoose.Schema({
+    atsScore: { type: Number, min: 0, max: 100, required: true },
+    missingKeywords: [String],
+    keywordDensity: {
+        overused: [String],
+        underused: [String]
     },
+    formattingIssues: [String],
+    rewrittenSummary: String
+}, { _id: false });
 
-    intention : {
-        type : String,
-        required : [true , "Intention is required"]
-    },
-    answer : {
-        type : String,
-        required : [true , "Answer is required"]
-    }
-    
-},{
-    _id : false
-})
+const questionSchema = new mongoose.Schema({
+    question: { type: String, required: true },
+    idealAnswerHint: { type: String, required: true },
+    redFlags: [String]
+}, { _id: false });
 
-const skillGapSchema = new mongoose.Schema({
-    skill : {
-        type : String,
-        required : [true , "Skill is required"]
+const prepPhaseSchema = new mongoose.Schema({
+    focusArea: { type: String, required: true },
+    resources: {
+        free: [String],
+        paid: [String]
     },
-    severity : {
-        type : String,
-        enum : ["low", "medium" , "high"],
-        required : [true , "Severity is required"]
-    },  
-},{
-    _id : false
-})
+    dailyTimeCommitment: String,
+    milestones: [String]
+}, { _id: false });
 
 const preparationPlanSchema = new mongoose.Schema({
-    day : {
-        type : Number,
-        required : [true , "Day is required"]
-    },
-    focus : {
-        type : [String],
-        required : [true , "Focus is required"]
-    },
-    tasks : [{
-        type : String,
-        required : [true , "Task is required"]
-    }]
-})
+    day1to30: prepPhaseSchema,
+    day31to60: prepPhaseSchema,
+    day61to90: prepPhaseSchema
+}, { _id: false });
+
+const matchAnalysisSchema = new mongoose.Schema({
+    overallMatchScore: { type: Number, min: 0, max: 100, required: true },
+    experienceMatch: { type: Number, min: 0, max: 100 },
+    skillsMatch: { type: Number, min: 0, max: 100 },
+    educationMatch: { type: Number, min: 0, max: 100 },
+    cultureFitSignals: [String],
+    hiringRecommendation: {
+        fit: { type: String, enum: ["strong", "moderate", "weak"] },
+        reason: String
+    }
+}, { _id: false });
 
 const interviewReportSchema = new mongoose.Schema({
-    jobDescription : {
-        type : String,
-        required : [true , "Job Description is Required"]
-    },
-    resume : {
-        type : String,
-        required : [true , "Resume is Required"]
-    },
-    selfDescription : {
-        type : String,
-        required : [true , "Self Description is Required"]
-    },
-    matchScore : {
-        type : Number,
-        min : 0,
-        max : 100
-    },
-    technicalQuestions : [techincalQuestionSchema],
-    behavioralQuestions : [behavioralQuestionSchema],
-    skillGaps : [skillGapSchema],
-    preparationPlan : [preparationPlanSchema]
-},{
+    jobDescription: { type: String, required: true },
+    resume: { type: String, required: true },
+    selfDescription: { type: String, required: true },
+    
+    // Feature 1: Skill Gap Analysis
+    skillGapAnalysis: skillGapAnalysisSchema,
+
+    // Feature 2: ATS Score + Keyword Optimization
+    atsAnalysis: atsAnalysisSchema,
+
+    // Feature 3: Interview Question Generator
+    technicalQuestions: [questionSchema],
+    behavioralQuestions: [questionSchema],
+    situationalQuestions: [questionSchema],
+
+    // Feature 4: 30-60-90 Day Preparation Plan
+    preparationPlan: preparationPlanSchema,
+
+    // Feature 6: Candidate-JD Match Score
+    matchAnalysis: matchAnalysisSchema,
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    }
+}, {
     timestamps: true
 });
 
