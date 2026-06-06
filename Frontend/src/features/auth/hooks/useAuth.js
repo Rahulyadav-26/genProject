@@ -58,22 +58,6 @@ export const useAuth = () => {
         }
     }
 
-    useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const response = await getMe();
-        setUser(response.user);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkUser();
-  }, []);
-
     return {
         user,
         loading,

@@ -9,7 +9,7 @@ function Register() {
     const {handleRegister,loading} = useAuth();
     const navigate = useNavigate();
     const handleSubmit = (e) => {
-        e.prevenDefault();
+        e.preventDefault();
         handleRegister({username,email,password});
         navigate("/");
     }
